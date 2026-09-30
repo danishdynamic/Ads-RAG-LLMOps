@@ -46,6 +46,7 @@ htmlcov/
 *.sqlite
 *.sqlite3
 *.db
+*.mlflow.db
 
 # DuckDB databases and write-ahead logs
 *.duckdb

@@ -212,6 +212,8 @@ def answer_query(
             {
                 "top_k": top_k,
                 "embedding_model": settings.gemini_embeddings,
+                "generation_model": settings.gemini_model,
+                "retrieval_strategy": route,
                 "environment": settings.app_env,
             }
         )
@@ -231,21 +233,18 @@ def answer_query(
         ) * 1000
 
         retrieved_document_count = len(retrieved_ids)
+        total_latency_ms = (
+            retrieval_latency_ms + generation_latency_ms
+        )
 
         # Metrics & Artifact logging
-        mlflow.log_metric(
-            "retrieval_latency_ms",
-            retrieval_latency_ms,
-        )
-
-        mlflow.log_metric(
-            "generation_latency_ms",
-            generation_latency_ms,
-        )
-
-        mlflow.log_metric(
-            "retrieved_document_count",
-            retrieved_document_count,
+        mlflow.log_metrics(
+            {
+                "retrieval_latency_ms": retrieval_latency_ms,
+                "generation_latency_ms": generation_latency_ms,
+                "total_pipeline_latency_ms": total_latency_ms,
+                "retrieved_document_count": retrieved_document_count,
+            }
         )
 
         mlflow.log_text(
@@ -265,4 +264,13 @@ def answer_query(
             "answer": answer,
             "context": context,
             "retrieval": retrieval,
+            "observability": {
+                "top_k": top_k,
+                "retrieved_document_count": retrieved_document_count,
+                "retrieval_latency_ms": retrieval_latency_ms,
+                "generation_latency_ms": generation_latency_ms,
+                "total_latency_ms": total_latency_ms,
+                "embedding_model": settings.gemini_embeddings,
+                "generation_model": settings.gemini_model,
+            },
         }

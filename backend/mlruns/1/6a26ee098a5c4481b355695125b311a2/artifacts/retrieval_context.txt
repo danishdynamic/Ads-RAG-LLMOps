@@ -1,0 +1,220 @@
+SEMANTIC SEARCH RESULTS:
+Facebook Advertisement
+
+Ad ID: FA_00798
+Campaign: Fitness Equipment Performance Campaign
+Date: 2026-05-20
+
+TARGETING
+Audience: Fashion enthusiasts
+Age Group: 25-34
+Gender: Female
+Country: United Kingdom
+Device: Desktop
+Placement: Stories
+
+PRODUCT
+Category: Fashion
+
+MARKETING
+Marketing Angle: Urgency
+Tone: Urgent
+Offer Type: Free Shipping
+Call To Action: Sign Up
+
+HEADLINE
+Only a Few Days Left
+
+PRIMARY TEXT
+Don't wait. This special fashion offer is available for a limited time.
+
+DESCRIPTION
+Limited-time offer. Act before it's gone.
+
+PERFORMANCE
+Impressions: 90225
+Reach: 79205
+Clicks: 4169
+Spend: $6704.04
+Conversions: 384
+Conversion Value: $29189.64
+CTR: 0.0462
+CPC: $1.6081
+CPA: $17.4584
+ROAS: 4.354
+
+Facebook Advertisement
+
+Ad ID: FA_00122
+Campaign: Fashion New Collection
+Date: 2026-03-09
+
+TARGETING
+Audience: Running Shoes enthusiasts
+Age Group: 35-44
+Gender: Female
+Country: Canada
+Device: Desktop
+Placement: Stories
+
+PRODUCT
+Category: Running Shoes
+
+MARKETING
+Marketing Angle: Urgency
+Tone: Premium
+Offer Type: None
+Call To Action: Get Offer
+
+HEADLINE
+Only a Few Days Left
+
+PRIMARY TEXT
+Don't wait. This special running shoes offer is available for a limited time.
+
+DESCRIPTION
+Limited-time offer. Act before it's gone.
+
+PERFORMANCE
+Impressions: 73411
+Reach: 48600
+Clicks: 3583
+Spend: $3884.41
+Conversions: 332
+Conversion Value: $43646.33
+CTR: 0.0488
+CPC: $1.0841
+CPA: $11.7
+ROAS: 11.2363
+
+Facebook Advertisement
+
+Ad ID: FA_00924
+Campaign: Fitness Equipment Customer Acquisition
+Date: 2026-04-07
+
+TARGETING
+Audience: Skincare enthusiasts
+Age Group: 55+
+Gender: Male
+Country: Australia
+Device: Mobile
+Placement: Feed
+
+PRODUCT
+Category: Skincare
+
+MARKETING
+Marketing Angle: Urgency
+Tone: Inspirational
+Offer Type: Percentage Discount
+Call To Action: Shop Now
+
+HEADLINE
+Only a Few Days Left
+
+PRIMARY TEXT
+Time is running out. Grab your skincare before this offer ends.
+
+DESCRIPTION
+Limited-time offer. Act before it's gone.
+
+PERFORMANCE
+Impressions: 140540
+Reach: 109328
+Clicks: 4946
+Spend: $556.98
+Conversions: 476
+Conversion Value: $78103.55
+CTR: 0.0352
+CPC: $0.1126
+CPA: $1.1701
+ROAS: 140.227
+
+Facebook Advertisement
+
+Ad ID: FA_00688
+Campaign: Fashion Growth Campaign
+Date: 2026-04-30
+
+TARGETING
+Audience: Fashion enthusiasts
+Age Group: 25-34
+Gender: Male
+Country: Australia
+Device: Tablet
+Placement: Stories
+
+PRODUCT
+Category: Fashion
+
+MARKETING
+Marketing Angle: Urgency
+Tone: Urgent
+Offer Type: Percentage Discount
+Call To Action: Sign Up
+
+HEADLINE
+Last Chance to Get Fashion
+
+PRIMARY TEXT
+Don't wait. This special fashion offer is available for a limited time.
+
+DESCRIPTION
+Limited-time offer. Act before it's gone.
+
+PERFORMANCE
+Impressions: 37956
+Reach: 32816
+Clicks: 1681
+Spend: $5408.28
+Conversions: 101
+Conversion Value: $5547.93
+CTR: 0.0443
+CPC: $3.2173
+CPA: $53.5473
+ROAS: 1.0258
+
+Facebook Advertisement
+
+Ad ID: FA_00393
+Campaign: Skincare Customer Acquisition
+Date: 2026-04-20
+
+TARGETING
+Audience: Fitness Equipment enthusiasts
+Age Group: 25-34
+Gender: Male
+Country: Australia
+Device: Desktop
+Placement: Reels
+
+PRODUCT
+Category: Fitness Equipment
+
+MARKETING
+Marketing Angle: Urgency
+Tone: Urgent
+Offer Type: None
+Call To Action: Get Offer
+
+HEADLINE
+Last Chance to Get Fitness Equipment
+
+PRIMARY TEXT
+Don't wait. This special fitness equipment offer is available for a limited time.
+
+DESCRIPTION
+Limited-time offer. Act before it's gone.
+
+PERFORMANCE
+Impressions: 38408
+Reach: 26348
+Clicks: 1575
+Spend: $1817.21
+Conversions: 88
+Conversion Value: $8393.57
+CTR: 0.041
+CPC: $1.1538
+CPA: $20.6501
+ROAS: 4.6189

@@ -1,0 +1,13 @@
+Based on the provided data, the following ads utilize urgency messaging and demonstrate high performance:
+
+*   **Ad ID: FA_00924**
+    *   **Messaging:** Uses "Only a Few Days Left" (Headline) and "Time is running out" (Primary Text).
+    *   **Performance:** Achieved the highest ROAS (140.227) and the lowest CPA ($1.1701) among all ads using urgency.
+*   **Ad ID: FA_00122**
+    *   **Messaging:** Uses "Only a Few Days Left" (Headline) and "Don't wait" (Primary Text).
+    *   **Performance:** Achieved a strong ROAS of 11.2363 and a competitive CPA of $11.70.
+*   **Ad ID: FA_00393**
+    *   **Messaging:** Uses "Last Chance to Get Fitness Equipment" (Headline) and "Don't wait" (Primary Text).
+    *   **Performance:** Achieved a ROAS of 4.6189 and a CPA of $20.6501.
+
+Ad FA_00798 and FA_00688 also use urgency messaging but show significantly lower ROAS (4.354 and 1.0258, respectively) compared to the ads listed above.

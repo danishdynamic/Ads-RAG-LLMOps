@@ -1,0 +1,17 @@
+Based on the provided data, the following high-performing Facebook ads utilize urgency messaging:
+
+*   **Ad ID: FA_00924 (Skincare Customer Acquisition)**
+    *   **Performance:** This is the highest-performing ad, achieving a ROAS of 140.227 and a CPA of $1.17.
+    *   **Messaging:** Uses the headline "Only a Few Days Left" and primary text "Time is running out. Grab your skincare before this offer ends."
+
+*   **Ad ID: FA_00122 (Fashion New Collection)**
+    *   **Performance:** Achieved a strong ROAS of 11.2363 and a CPA of $11.70.
+    *   **Messaging:** Uses the headline "Only a Few Days Left" and primary text "Don't wait. This special running shoes offer is available for a limited time."
+
+*   **Ad ID: FA_00393 (Skincare Customer Acquisition)**
+    *   **Performance:** Achieved a ROAS of 4.6189 and a CPA of $20.65.
+    *   **Messaging:** Uses the headline "Last Chance to Get Fitness Equipment" and primary text "Don't wait. This special fitness equipment offer is available for a limited time."
+
+*   **Ad ID: FA_00798 (Fitness Equipment Performance Campaign)**
+    *   **Performance:** Achieved a ROAS of 4.354 and a CPA of $17.46.
+    *   **Messaging:** Uses the headline "Only a Few Days Left" and primary text "Don't wait. This special fashion offer is available for a limited time."
