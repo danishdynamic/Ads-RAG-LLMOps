@@ -1,3 +1,6 @@
+import time
+import mlflow
+
 from sqlalchemy.orm import Session
 
 from app.rag.context import ad_to_context
@@ -11,6 +14,10 @@ from app.rag.sql_retriever import (
     lowest_cpa,
 )
 from app.rag.vector_retriever import vector_search
+from app.core.config import get_settings
+from app.observability.mlflow_tracker import track_rag_run
+
+settings = get_settings()
 
 
 def deduplicate_results(results: dict) -> dict:
@@ -143,25 +150,119 @@ def answer_query(
     query: str,
     top_k: int = 5,
 ):
+    retrieval_start = time.perf_counter()
+
     retrieval = retrieve(
         db=db,
         query=query,
         top_k=top_k,
     )
+
+    retrieval_latency_ms = (
+        time.perf_counter() - retrieval_start
+    ) * 1000
+
     retrieval = deduplicate_results(retrieval)
 
-    context = build_context(retrieval)
+    route = retrieval["route"]
+    intent = retrieval["intent"]
 
-    answer = generate_answer(
+    with track_rag_run(
         question=query,
-        context=context,
-    )
+        route=route,
+        model_name=settings.gemini_model,
+    ):
+        # --------------------------------------------------
+        # 1. Log query intent
+        # --------------------------------------------------
+        mlflow.log_dict(
+            intent,
+            "query_intent.json",
+        )
 
-    return {
-        "question": query,
-        "route": retrieval["route"],
-        "intent": retrieval["intent"],
-        "answer": answer,
-        "retrieval": retrieval,
-        "context": context,
-    }
+        # --------------------------------------------------
+        # 2. Extract & log retrieved ad IDs
+        # --------------------------------------------------
+        sql_ids = [
+            item["ad_id"]
+            for item in retrieval.get("sql_results", [])
+            if isinstance(item, dict) and "ad_id" in item
+        ]
+        vector_ids = [
+            item["ad_id"]
+            for item in retrieval.get("vector_results", [])
+            if isinstance(item, dict) and "ad_id" in item
+        ]
+        retrieved_ids = sql_ids + vector_ids
+
+        mlflow.log_dict(
+            {
+                "retrieved_ad_ids": retrieved_ids,
+                "count": len(retrieved_ids),
+                "sql_count": len(sql_ids),
+                "vector_count": len(vector_ids),
+            },
+            "retrieval_results.json",
+        )
+
+        # --------------------------------------------------
+        # 3 & 4. Log retrieval parameters & full RAG config
+        # --------------------------------------------------
+        mlflow.log_params(
+            {
+                "top_k": top_k,
+                "embedding_model": settings.gemini_embeddings,
+                "environment": settings.app_env,
+            }
+        )
+
+        # Context generation & model answer
+        context = build_context(retrieval)
+
+        generation_start = time.perf_counter()
+
+        answer = generate_answer(
+            question=query,
+            context=context,
+        )
+
+        generation_latency_ms = (
+            time.perf_counter() - generation_start
+        ) * 1000
+
+        retrieved_document_count = len(retrieved_ids)
+
+        # Metrics & Artifact logging
+        mlflow.log_metric(
+            "retrieval_latency_ms",
+            retrieval_latency_ms,
+        )
+
+        mlflow.log_metric(
+            "generation_latency_ms",
+            generation_latency_ms,
+        )
+
+        mlflow.log_metric(
+            "retrieved_document_count",
+            retrieved_document_count,
+        )
+
+        mlflow.log_text(
+            context,
+            "retrieval_context.txt",
+        )
+
+        mlflow.log_text(
+            answer,
+            "generated_answer.txt",
+        )
+
+        return {
+            "question": query,
+            "route": route,
+            "intent": intent,
+            "answer": answer,
+            "context": context,
+            "retrieval": retrieval,
+        }

@@ -9,3 +9,4 @@ python-dotenv
 faker
 google-genai
 numpy
+mlflow

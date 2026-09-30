@@ -1,3 +1,4 @@
+import mlflow
 from sqlalchemy.orm import Session
 
 from app.evaluation.llm_judge import judge_answer
@@ -20,6 +21,14 @@ def evaluate_answer(
         question=question,
         context=result["context"],
         answer=result["answer"],
+    )
+
+    mlflow.log_metrics(
+        {
+            "faithfulness": evaluation["faithfulness"],
+            "relevance": evaluation["relevance"],
+            "completeness": evaluation["completeness"],
+        }
     )
 
     return {
