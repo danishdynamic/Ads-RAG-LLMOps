@@ -1,6 +1,6 @@
 # Ads RAG LLMOps
 
-An LLMOps project for evaluating and observing a hybrid Retrieval-Augmented Generation (RAG) system over synthetic Google Ads and Facebook Ads data.
+> An LLMOps project for evaluating and observing a hybrid Retrieval Augmented Generation (RAG) system over synthetic Google Ads and Facebook Ads data.
 
 The system combines structured advertising analytics with semantic retrieval of marketing content, uses Gemini for answer generation, evaluates retrieval quality and generated answers, and tracks experiments with MLflow.
 
@@ -13,73 +13,64 @@ Advertising data contains two different types of information:
 * **Structured performance data** — spend, clicks, conversions, CTR, CPA, ROAS, platform, audience, etc.
 * **Unstructured marketing content** — headlines, primary text, descriptions, marketing angles, tone, offers, and messaging.
 
-A traditional SQL-only system is useful for numerical questions but weak at semantic questions such as:
+A traditional SQL only system is useful for numerical questions but weak at semantic questions such as:
 
 > "Which ads use urgency messaging?"
 
-A vector-only RAG system can retrieve semantically relevant ads but is not designed for precise numerical filtering such as:
+A vector only RAG system can retrieve semantically relevant ads but is not designed for precise numerical filtering such as:
 
 > "Find Facebook ads with ROAS above 2."
 
 This project combines both approaches into a hybrid RAG pipeline.
 
+## 📚 Project Documentation
+
+| Document | Description |
+| :--- | :--- |
+| [ Tests Guide](./docs/scripts/README.md) | Guide for running tests |
+| [API Reference](./backend/README.md) | API documentation |
+| [Infrastructure Setup](./docs/infra/README.md) | Instructions for setting up the infrastructure |
+
 ## Key Capabilities
 
 * Synthetic Google Ads and Facebook Ads dataset
 * PostgreSQL database with pgvector
-* SQL-based structured retrieval
-* Vector-based semantic retrieval
+* SQL based structured retrieval
+* Vector based semantic retrieval
 * Hybrid SQL + vector retrieval
 * Query intent extraction and routing
-* Gemini-based answer generation
+* Gemini based answer generation
 * Retrieval evaluation
-* LLM-as-a-judge answer evaluation
+* LLM as a judge answer evaluation
 * MLflow experiment tracking
 * RAG observability and latency tracking
 * Reproducible retrieval experiments
 
 ## Architecture
 
-```text
-                         User Question
-                              |
-                              v
-                    +-------------------+
-                    |   Query Router    |
-                    | + Intent Extract  |
-                    +---------+---------+
-                              |
-                 +------------+------------+
-                 |                         |
-                 v                         v
-        +----------------+        +----------------+
-        | SQL Retriever  |        | Vector Search  |
-        |                |        |                |
-        | PostgreSQL     |        | pgvector       |
-        | Metrics        |        | Embeddings     |
-        +-------+--------+        +-------+--------+
-                |                         |
-                +------------+------------+
-                             |
-                             v
-                    +-------------------+
-                    | Context Builder   |
-                    +---------+---------+
-                              |
-                              v
-                    +-------------------+
-                    | Gemini Generator  |
-                    +---------+---------+
-                              |
-                              v
-                         Final Answer
-                              |
-                              v
-                    +-------------------+
-                    |    MLflow         |
-                    | Evaluation +      |
-                    | Observability     |
-                    +-------------------+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant Router as Query Router
+    participant DB as Postgres / pgvector
+    participant LLM as Gemini Generator
+    participant ML as MLflow
+
+    User->>Router: Submit Question
+    Router->>Router: Extract Intent
+    
+    alt SQL Metrics Query
+        Router->>DB: Execute SQL Query
+        DB-->>Router: Structured Metrics
+    else Semantic Search
+        Router->>DB: Execute Vector Search
+        DB-->>Router: Relevant Embeddings
+    end
+
+    Router->>LLM: Build & Pass Context
+    LLM-->>User: Final Answer
+    LLM->>ML: Log Trace, Metrics & Evaluation
 ```
 
 ## Dataset
@@ -132,8 +123,6 @@ The system supports three retrieval routes.
 ![API DOCS](docs/screenshots/api-docs.png)
 
 
-
-
 ### SQL Retrieval
 
 Used for structured analytical questions such as:
@@ -169,7 +158,7 @@ Marketing content is converted into embeddings using Gemini and stored in pgvect
 Hybrid questions combine structured constraints with semantic retrieval:
 
 ```text
-Find high-performing Facebook ads that use urgency messaging.
+Find high performing Facebook ads that use urgency messaging.
 
 Find Google ads with high ROAS that use discount messaging.
 
@@ -207,7 +196,7 @@ The generation prompt instructs the model to:
 
 ## Evaluation
 
-The project includes a 15-case evaluation dataset covering:
+The project includes a 15 case evaluation dataset covering:
 
 * SQL questions
 * Semantic questions
@@ -337,32 +326,32 @@ Which ads use urgency messaging?
 ### Hybrid
 
 ```text
-Find high-performing Facebook ads that use urgency messaging.
+Find high performing Facebook ads that use urgency messaging.
 ```
 
 ## Project Structure
 
-```text
-Agentic-Customer-Marketing-Intelligence/
+```Plaintext
+Ads-Rag-LLMOps/
 ├── README.md
 ├── docker-compose.yml
 └── backend/
-    ├── README.md
-    ├── .env
-    ├── .env.example
-    ├── requirements.txt
-    ├── alembic.ini
-    ├── alembic/
-    │   └── versions/
-    ├── app/
-    │   ├── api/
-    │   ├── core/
-    │   ├── db/
-    │   ├── evaluation/
-    │   ├── observability/
-    │   └── rag/
-    └── scripts/
-        └── README.md
+    ├── README.md
+    ├── .env
+    ├── .env.example
+    ├── requirements.txt
+    ├── alembic.ini
+    ├── alembic/
+    │   └── versions/
+    ├── app/
+    │   ├── api/
+    │   ├── core/
+    │   ├── db/
+    │   ├── evaluation/
+    │   ├── observability/
+    │   └── rag/
+    └── scripts/
+        └── README.md
 ```
 
 ## Tech Stack

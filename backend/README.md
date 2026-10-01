@@ -1,6 +1,6 @@
 # Ads RAG LLMOps — Backend
 
-The backend implements the API, database layer, hybrid RAG pipeline, evaluation framework, MLflow tracking, and observability components for the Ads RAG LLMOps project.
+> The backend implements the API, database layer, hybrid RAG pipeline, evaluation framework, MLflow tracking, and observability components for the Ads RAG LLMOps project.
 
 ## Backend Responsibilities
 
@@ -23,33 +23,43 @@ The backend provides:
 
 ## Architecture
 
-```text
-FastAPI
-   |
-   v
-RAG Pipeline
-   |
-   +--------------------+
-   |                    |
-   v                    v
-SQL Retriever       Vector Retriever
-   |                    |
-   v                    v
-PostgreSQL           pgvector
-   |                    |
-   +---------+----------+
-             |
-             v
-       Context Builder
-             |
-             v
-       Gemini Generator
-             |
-             v
-        Final Answer
-             |
-             v
-          MLflow
+```mermaid
+graph TD
+    classDef api fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px;
+    classDef orchestrator fill:#7c3aed,color:#fff,stroke:#6d28d9,stroke-width:2px;
+    classDef storage fill:#059669,color:#fff,stroke:#047857,stroke-width:2px;
+    classDef gen fill:#d97706,color:#fff,stroke:#b45309,stroke-width:2px;
+    classDef obs fill:#475569,color:#fff,stroke:#334155,stroke-width:2px;
+
+    API["FastAPI Endpoint"]:::api
+    
+    subgraph RAG ["RAG Orchestration"]
+        Pipe["RAG Pipeline"]:::orchestrator
+        CB["Context Builder"]:::orchestrator
+    end
+
+    subgraph DataStores ["Hybrid Retrieval Layer"]
+        direction LR
+        subgraph SQLPath ["SQL Route"]
+            SR["SQL Retriever"]:::storage --> PG[("PostgreSQL")]:::storage
+        end
+        subgraph VectorPath ["Vector Route"]
+            VR["Vector Retriever"]:::storage --> PGV[("pgvector")]:::storage
+        end
+    end
+
+    GG["Gemini Generator"]:::gen
+    FA["Final Answer"]:::gen
+    ML["MLflow Tracking"]:::obs
+
+    API --> Pipe
+    Pipe --> SR
+    Pipe --> VR
+    PG --> CB
+    PGV --> CB
+    CB --> GG
+    GG --> FA
+    FA --> ML
 ```
 
 ## Requirements
@@ -111,7 +121,7 @@ The main entities are:
 
 ### Campaign
 
-Stores campaign-level information.
+Stores campaign level information.
 
 ### Ad
 
@@ -211,7 +221,7 @@ Examples:
 ```text
 Which ads use urgency messaging?
 Find ads using premium messaging.
-Which ads use discount-focused language?
+Which ads use discount focused language?
 ```
 
 ### Hybrid
@@ -221,7 +231,7 @@ Questions requiring both structured filtering and semantic understanding use bot
 Example:
 
 ```text
-Find high-performing Facebook ads that use urgency messaging.
+Find high performing Facebook ads that use urgency messaging.
 ```
 
 The pipeline can combine:
@@ -516,22 +526,23 @@ mlflow ui --backend-store-uri sqlite:///mlflow.db
 
 ## Design Goal
 
-The backend is designed as an LLMOps-oriented RAG system rather than a simple question-answering API.
+The backend is designed as an LLMOps oriented RAG system rather than a simple question-answering API.
 
 The important engineering loop is:
 
-```text
-Retrieve
-   ↓
-Generate
-   ↓
-Evaluate
-   ↓
-Track
-   ↓
-Observe
-   ↓
-Compare
-   ↓
-Iterate
+```mermaid
+graph TD
+    classDef step fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff;
+    classDef loop fill:#1e1b4b,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+
+    R["1. Retrieve<br/><i>(Hybrid SQL + Vector Search)</i>"]:::step
+    G["2. Generate<br/><i>(Gemini / Prompt Execution)</i>"]:::step
+    E["3. Evaluate<br/><i>(Precision, Recall, Hit Rate)</i>"]:::step
+    T["4. Track<br/><i>(MLflow Params & Artifacts)</i>"]:::step
+    O["5. Observe<br/><i>(Traces & Latency Metrics)</i>"]:::step
+    C["6. Compare<br/><i>(Experiment Runs & Top-K)</i>"]:::step
+    I["7. Iterate<br/><i>(Tune Prompts, Chunking, Routing)</i>"]:::loop
+
+    R --> G --> E --> T --> O --> C --> I
+    I -. "Refine & Rerun" .-> R
 ```

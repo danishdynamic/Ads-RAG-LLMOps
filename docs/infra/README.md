@@ -1,8 +1,7 @@
 # Infrastructure & Local Development Guide
 
-This guide covers setting up, running, and managing the local containerized environment for the project, including the PostgreSQL database with `pgvector` support, the FastAPI backend, and MLflow experiment tracking.
+> This guide covers setting up, running, and managing the local containerized environment for the project, including the PostgreSQL database with `pgvector` support, the FastAPI backend, and MLflow experiment tracking.
 
----
 
 ## 🏗️ Architecture Overview
 
@@ -12,7 +11,6 @@ This guide covers setting up, running, and managing the local containerized envi
 | **MLflow Server** | `ads-llmops-mlflow` | `ghcr.io/mlflow/mlflow:v2.11.3` | `5000` | `5000` | RAG & LLM tracking server |
 | **Backend API** | `ads-llmops-backend` | `./backend` (`python:3.12`) | `8000` | `8000` | FastAPI application layer |
 
----
 
 ## 🚀 Quick Start
 
@@ -113,6 +111,7 @@ volumes:
 ```
 
 ## 🛠️ Connection Endpoints
+
 - FastAPI API Documentation: ```http://localhost:8000/docs```
 
 - MLflow Tracking UI: ```http://localhost:5000```
@@ -122,6 +121,7 @@ volumes:
 - PostgreSQL Connection (Inside Docker Network): ```postgresql://ads_user:ads_password@postgres:5432/ads_llmops```
 
 ## 🧪 Enabling pgvector in PostgreSQL
+
 To enable vector operations, verify or run the following SQL command on startup inside your application migration script or SQLAlchemy startup hook:
 
 ```SQL

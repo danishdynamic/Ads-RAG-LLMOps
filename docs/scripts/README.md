@@ -1,4 +1,4 @@
-# Backend Scripts
+# Backend Scripts / Tests Guide
 
 This directory contains utility scripts for data preparation, evaluation, experiment comparison, and development checks.
 
